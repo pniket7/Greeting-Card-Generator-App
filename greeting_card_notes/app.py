@@ -470,27 +470,6 @@ def main():
                 """
                 st.markdown(card_html, unsafe_allow_html=True)
 
-                # Collapsible raw copy area to avoid cluttering the beautiful display
-                with st.expander("Copy text options", expanded=False):
-                    st.text_area(
-                        "Copy-ready plain text",
-                        value=st.session_state.final_note,
-                        height=150,
-                    )
-
-                meta_cols = st.columns(3)
-                with meta_cols[0]:
-                    st.metric("Review verdict", st.session_state.verdict or "—")
-                with meta_cols[1]:
-                    st.metric("Review attempts", st.session_state.attempts or 0)
-                with meta_cols[2]:
-                    word_count = len(st.session_state.final_note.split())
-                    st.metric("Word count", word_count)
-
-                if st.session_state.craft_notes:
-                    with st.expander("Why this note works", expanded=False):
-                        st.markdown(st.session_state.craft_notes)
-
                 st.markdown("#### Quick refinements")
                 r1, r2, r3, r4 = st.columns(4)
                 refinements = [
