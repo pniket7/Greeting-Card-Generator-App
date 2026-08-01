@@ -1,3 +1,0 @@
-streamlit>=1.43.0
-google-genai>=1.61
-python-dotenv>=1.0
