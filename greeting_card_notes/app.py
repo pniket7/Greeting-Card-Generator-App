@@ -375,7 +375,7 @@ def main():
                 additional_guidance,
             )
 
-            with st.spinner("Writing and polishing your note..."):
+            with st.spinner("Generating your greeting card note..."):
                 try:
                     # Generate note through write -> review -> revise pipeline
                     result = generate_greeting_card_note(
