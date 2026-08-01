@@ -284,7 +284,6 @@ def main():
     st.markdown('<h1 class="app-title">Greeting Card Notes</h1>', unsafe_allow_html=True)
     st.caption(
         "Prototype: turn a few personal details into a copy-ready card note. "
-        "Powered by Gemini with a write → review → revise loop."
     )
     st.markdown("<br>", unsafe_allow_html=True)
 
