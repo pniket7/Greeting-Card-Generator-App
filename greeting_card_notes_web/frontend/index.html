@@ -269,13 +269,13 @@
                     <button onclick="cancelFlow()" class="text-xs text-editorial-muted hover:text-editorial-text uppercase tracking-wider font-medium transition-colors">Cancel</button>
                 </div>
 
-                <!-- Step 1: Email Form -->
+                <!-- Step 1: Email Form (optional during testing) -->
                 <div id="flow-step-1" class="space-y-6">
                     <p class="text-editorial-muted text-sm leading-relaxed">
-                        We use your email exclusively to save your notes, let you return to them later, and manage free note balances. First note is entirely free.
+                        Email is optional for now while we test. Later it will be used to save notes and manage free balances. You can skip this step.
                     </p>
                     <div class="space-y-2">
-                        <label for="flow-email" class="text-xs font-semibold text-editorial-text uppercase tracking-wider">Email Address</label>
+                        <label for="flow-email" class="text-xs font-semibold text-editorial-text uppercase tracking-wider">Email Address <span class="font-normal normal-case tracking-normal text-editorial-muted">(optional)</span></label>
                         <input type="email" id="flow-email" placeholder="e.g. you@example.com" class="w-full bg-editorial-bg border border-editorial-border px-4 py-3 text-sm focus:outline-none focus:border-editorial-text transition-colors">
                     </div>
                     <div class="flex items-start space-x-3 pt-2">
@@ -284,9 +284,12 @@
                             Keep me updated with quiet relationship stories, writing insights, and product updates. (No spam, unsubscribe anytime).
                         </label>
                     </div>
-                    <div class="pt-6">
-                        <button onclick="nextStep(1)" class="w-full bg-editorial-text text-editorial-bg py-3 text-sm font-semibold tracking-wide hover:bg-editorial-text/90 transition-all">
+                    <div class="pt-6 flex space-x-3">
+                        <button onclick="nextStep(1)" class="flex-1 bg-editorial-text text-editorial-bg py-3 text-sm font-semibold tracking-wide hover:bg-editorial-text/90 transition-all">
                             Continue
+                        </button>
+                        <button onclick="nextStep(1)" class="px-5 border border-editorial-border text-editorial-muted py-3 text-sm font-semibold hover:text-editorial-text hover:bg-editorial-border/20 transition-all">
+                            Skip
                         </button>
                     </div>
                 </div>
@@ -655,9 +658,10 @@
 
         function nextStep(step) {
             if (step === 1) {
+                // Email is optional during testing — only validate format if provided
                 const email = document.getElementById('flow-email').value.trim();
-                if (!email || !email.includes('@')) {
-                    alert("Please enter a valid email address.");
+                if (email && !email.includes('@')) {
+                    alert("Please enter a valid email address, or leave it blank to skip.");
                     return;
                 }
             } else if (step === 2) {
