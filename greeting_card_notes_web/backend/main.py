@@ -50,7 +50,7 @@ INDEX_HTML = FRONTEND_DIR / "index.html"
 
 
 class GenerateRequest(BaseModel):
-    email: str = Field(..., description="User's email for saving the note")
+    email: Optional[str] = Field("", description="User's email for saving the note (optional during testing)")
     newsletter_consent: bool = Field(False, description="Optional newsletter subscription")
     occasion_category: str = Field(..., description="celebrate, thank, or comfort")
     specific_moment: str = Field(..., description="Specific occasion like graduation, birthday, etc.")
