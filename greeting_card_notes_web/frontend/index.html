@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooting For You — Notes</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Lora (Editorial Serif) & Inter (Calm Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Lora', 'Georgia', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        editorial: {
+                            bg: '#FAF9F6', // Off-white/cream paper color
+                            text: '#1C1A17', // Soft charcoal/black
+                            muted: '#706B63', // Warm grey
+                            border: '#E3DFD5', // Subtle beige-grey border
+                            accent: '#8C7A6B', // Refined warm neutral accent
+                            cardBg: '#FCFAF7',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth page transitions and customized editorial look */
+        body {
+            background-color: #FAF9F6;
+            color: #1C1A17;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Custom scrollbar to match editorial theme */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF9F6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E3DFD5;
+            border-radius: 3px;
+        }
+        /* Hide step containers by default */
+        .app-view {
+            display: none;
+        }
+        .app-view.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-sans min-h-screen flex flex-col selection:bg-editorial-accent/20">
+
+    <!-- Top Visible Navigation Bar -->
+    <header class="border-b border-editorial-border sticky top-0 bg-editorial-bg/95 backdrop-blur-md z-40 transition-all duration-200">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" onclick="showView('home')" class="font-serif text-xl font-semibold tracking-tight text-editorial-text hover:opacity-80 transition-opacity">
+                Rooting for you<span class="text-editorial-accent">.</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-editorial-muted">
+                <a href="#examples" onclick="showView('home'); scrollToSection('examples')" class="hover:text-editorial-text transition-colors">Examples</a>
+                <a href="#faq" onclick="showView('home'); scrollToSection('faq')" class="hover:text-editorial-text transition-colors">FAQ</a>
+                <a href="#about" onclick="showView('home'); scrollToSection('about')" class="hover:text-editorial-text transition-colors">About</a>
+            </nav>
+
+            <button onclick="startNoteFlow()" class="bg-editorial-text text-editorial-bg px-5 py-2 text-sm font-semibold tracking-wide hover:bg-editorial-text/90 active:scale-[0.98] transition-all duration-150">
+                Help me say it
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        
+        <!-- ==================================================================== -->
+        <!-- VIEW 1: HOMEPAGE (Editorial, spacious before/after and core value prop) -->
+        <!-- ==================================================================== -->
+        <section id="view-home" class="app-view active">
+            <!-- Hero Section -->
+            <div class="max-w-6xl mx-auto px-6 py-12 md:py-24 grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-7 space-y-6">
+                    <h1 class="font-serif text-4xl md:text-6xl font-normal leading-[1.1] tracking-tight text-editorial-text">
+                        Help them feel it.
+                    </h1>
+                    <p class="text-lg md:text-xl text-editorial-muted font-normal max-w-lg leading-relaxed">
+                        We help you find the words for the people you love. No impressive words. More honest ones. Sincere, specific, and completely yours.
+                    </p>
+                    <div class="pt-4">
+                        <button onclick="startNoteFlow()" class="bg-editorial-text text-editorial-bg px-8 py-4 text-base font-semibold tracking-wide hover:bg-editorial-text/90 active:scale-[0.98] transition-all shadow-sm">
+                            Help me say it
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Honest Comparison Block -->
+                <div class="md:col-span-5 bg-editorial-cardBg border border-editorial-border p-8 rounded-sm space-y-8 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 h-1.5 w-full bg-editorial-border"></div>
+                    <div class="space-y-3">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-editorial-muted/80">Instead of surface words...</span>
+                        <blockquote class="font-sans text-sm text-editorial-muted italic border-l border-editorial-border/60 pl-4 py-1 leading-relaxed">
+                            "Happy birthday! I hope you have an amazing day and all your wishes come true."
+                        </blockquote>
+                    </div>
+                    <div class="space-y-3">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-editorial-accent">Say what is actually true...</span>
+                        <blockquote class="font-serif text-base text-editorial-text italic border-l-2 border-editorial-accent pl-4 py-1 leading-relaxed">
+                            "Happy birthday! I really appreciate how you remember the small things and make people feel cared for without making a fuss. I feel lucky to have you as a friend..."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How It Works Intro Section -->
+            <div class="border-t border-editorial-border bg-editorial-cardBg/50 py-16 md:py-24">
+                <div class="max-w-6xl mx-auto px-6 space-y-16">
+                    <div class="text-center max-w-xl mx-auto space-y-3">
+                        <h2 class="font-serif text-3xl font-normal text-editorial-text">Tell us three simple things.</h2>
+                        <p class="text-editorial-muted leading-relaxed text-sm">
+                            You do not need to know how to write the note. You only need to tell us what is true.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+                        <div class="space-y-4">
+                            <div class="font-serif text-3xl text-editorial-accent/60">01</div>
+                            <h3 class="font-serif text-xl font-normal text-editorial-text">Who are they to you?</h3>
+                            <p class="text-editorial-muted text-sm leading-relaxed">
+                                Your relationship helps us understand how close, casual, or familiar the note should feel.
+                            </p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="font-serif text-3xl text-editorial-accent/60">02</div>
+                            <h3 class="font-serif text-xl font-normal text-editorial-text">What is the moment?</h3>
+                            <p class="text-editorial-muted text-sm leading-relaxed">
+                                A celebration, a thank-you, a difficult season, or simply something you do not want to leave unsaid.
+                            </p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="font-serif text-3xl text-editorial-accent/60">03</div>
+                            <h3 class="font-serif text-xl font-normal text-editorial-text">What should they know?</h3>
+                            <p class="text-editorial-muted text-sm leading-relaxed">
+                                A specific thing they did, what it meant, or a detail that belongs to your relationship.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Three Categories Entry Points -->
+            <div id="categories" class="max-w-6xl mx-auto px-6 py-16 md:py-24 space-y-12">
+                <div class="text-center space-y-2">
+                    <h2 class="font-serif text-3xl font-normal text-editorial-text">How would you like to start?</h2>
+                    <p class="text-editorial-muted text-sm">Select a category to write your first free note.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Celebrate -->
+                    <button onclick="startNoteFlow('celebrate')" class="text-left group border border-editorial-border bg-editorial-bg p-8 hover:border-editorial-text transition-all duration-300 flex flex-col justify-between h-64 hover:shadow-sm">
+                        <div class="space-y-3">
+                            <h3 class="font-serif text-2xl font-normal text-editorial-text group-hover:text-editorial-accent transition-colors">Celebrate them</h3>
+                            <p class="text-editorial-muted text-sm leading-relaxed">
+                                Celebrate birthdays, promotions, graduations, engagements, announcements, or new beginnings.
+                            </p>
+                        </div>
+                        <div class="text-xs font-semibold tracking-wider uppercase text-editorial-text flex items-center space-x-1.5 pt-4">
+                            <span>Write a celebration</span>
+                            <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                        </div>
+                    </button>
+
+                    <!-- Thank -->
+                    <button onclick="startNoteFlow('thank')" class="text-left group border border-editorial-border bg-editorial-bg p-8 hover:border-editorial-text transition-all duration-300 flex flex-col justify-between h-64 hover:shadow-sm">
+                        <div class="space-y-3">
+                            <h3 class="font-serif text-2xl font-normal text-editorial-text group-hover:text-editorial-accent transition-colors">Thank them</h3>
+                            <p class="text-editorial-muted text-sm leading-relaxed">
+                                Express gratitude for support, presence, a kind act, hospitality, guidance, or quiet care.
+                            </p>
+                        </div>
+                        <div class="text-xs font-semibold tracking-wider uppercase text-editorial-text flex items-center space-x-1.5 pt-4">
+                            <span>Write a thank-you</span>
+                            <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                        </div>
+                    </button>
+
+                    <!-- Comfort -->
+                    <button onclick="startNoteFlow('comfort')" class="text-left group border border-editorial-border bg-editorial-bg p-8 hover:border-editorial-text transition-all duration-300 flex flex-col justify-between h-64 hover:shadow-sm">
+                        <div class="space-y-3">
+                            <h3 class="font-serif text-2xl font-normal text-editorial-text group-hover:text-editorial-accent transition-colors">Comfort them</h3>
+                            <p class="text-editorial-muted text-sm leading-relaxed">
+                                Send sincere sympathy, offer support during difficult seasons, illness, or quiet, tender milestones.
+                            </p>
+                        </div>
+                        <div class="text-xs font-semibold tracking-wider uppercase text-editorial-text flex items-center space-x-1.5 pt-4">
+                            <span>Write comfort</span>
+                            <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- About / Quality Section -->
+            <div id="about" class="border-t border-editorial-border bg-editorial-cardBg py-16 md:py-24">
+                <div class="max-w-4xl mx-auto px-6 text-center space-y-6">
+                    <span class="text-xs font-semibold tracking-widest uppercase text-editorial-accent">Our Philosophy</span>
+                    <h2 class="font-serif text-3xl md:text-4xl font-normal text-editorial-text leading-tight">
+                        Words can carry a relationship. But only when they are true.
+                    </h2>
+                    <p class="text-editorial-muted text-base leading-relaxed max-w-2xl mx-auto">
+                        "Rooting For You" believes that the best writing is emotional precision, not literary performance. We don't write generic, flowery Hallmark quotes. We build detailed prompts, use strict human verification rules, and let your real facts turn into copy-ready, honest note-writing.
+                    </p>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div id="faq" class="max-w-4xl mx-auto px-6 py-16 md:py-24 space-y-12">
+                <h2 class="font-serif text-3xl font-normal text-center text-editorial-text">Frequently Asked Questions</h2>
+                
+                <div class="space-y-6">
+                    <div class="border-b border-editorial-border/60 pb-6 space-y-2">
+                        <h3 class="font-serif text-lg font-medium text-editorial-text">Is this just generic ChatGPT?</h3>
+                        <p class="text-editorial-muted text-sm leading-relaxed">
+                            No. AI left to itself writes empty, generic, and dramatic lines. We enforce 8 core guidelines (Meaning, Focus, Fit, Feeling, Truth, Voice, Freedom, and Restraint) through an active reviewer-agent loop that fails notes containing clichés or fabricated details.
+                        </p>
+                    </div>
+                    <div class="border-b border-editorial-border/60 pb-6 space-y-2">
+                        <h3 class="font-serif text-lg font-medium text-editorial-text">Can I edit the final note?</h3>
+                        <p class="text-editorial-muted text-sm leading-relaxed">
+                            Absolutely. Manual editing is unlimited and completely free. You can also use up to 2 AI-assisted refinements to adjust the voice (warmer, more restrained, more direct) or add forgotten details.
+                        </p>
+                    </div>
+                    <div class="border-b border-editorial-border/60 pb-6 space-y-2">
+                        <h3 class="font-serif text-lg font-medium text-editorial-text">What formats can I use the note in?</h3>
+                        <p class="text-editorial-muted text-sm leading-relaxed">
+                            Your finished note is provided as clean text. You can write it by hand on a card, copy-paste it into an email or text message, use it in a conversation, or save it as a PDF or text file.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- VIEW 2: NOTE FLOW (Interactive multi-step screen setup) -->
+        <!-- ==================================================================== -->
+        <section id="view-flow" class="app-view">
+            <div class="max-w-2xl mx-auto px-6 py-12 md:py-20 space-y-10">
+                <!-- Step Header & Progress Indicator -->
+                <div class="flex items-center justify-between border-b border-editorial-border pb-4">
+                    <div class="space-y-1">
+                        <span id="step-number" class="text-xs font-semibold uppercase tracking-widest text-editorial-accent">Step 1 of 3</span>
+                        <h2 id="step-title" class="font-serif text-2xl font-normal text-editorial-text">Your Email</h2>
+                    </div>
+                    <button onclick="cancelFlow()" class="text-xs text-editorial-muted hover:text-editorial-text uppercase tracking-wider font-medium transition-colors">Cancel</button>
+                </div>
+
+                <!-- Step 1: Email Form -->
+                <div id="flow-step-1" class="space-y-6">
+                    <p class="text-editorial-muted text-sm leading-relaxed">
+                        We use your email exclusively to save your notes, let you return to them later, and manage free note balances. First note is entirely free.
+                    </p>
+                    <div class="space-y-2">
+                        <label for="flow-email" class="text-xs font-semibold text-editorial-text uppercase tracking-wider">Email Address</label>
+                        <input type="email" id="flow-email" placeholder="e.g. you@example.com" class="w-full bg-editorial-bg border border-editorial-border px-4 py-3 text-sm focus:outline-none focus:border-editorial-text transition-colors">
+                    </div>
+                    <div class="flex items-start space-x-3 pt-2">
+                        <input type="checkbox" id="flow-newsletter" class="mt-1 h-4 w-4 accent-editorial-accent border-editorial-border rounded">
+                        <label for="flow-newsletter" class="text-xs text-editorial-muted leading-relaxed select-none">
+                            Keep me updated with quiet relationship stories, writing insights, and product updates. (No spam, unsubscribe anytime).
+                        </label>
+                    </div>
+                    <div class="pt-6">
+                        <button onclick="nextStep(1)" class="w-full bg-editorial-text text-editorial-bg py-3 text-sm font-semibold tracking-wide hover:bg-editorial-text/90 transition-all">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Who & Why (Relationship and Closeness) -->
+                <div id="flow-step-2" class="hidden space-y-6">
+                    <p class="text-editorial-muted text-sm leading-relaxed">
+                        Establish who you are writing to and the broad emotional direction. This details the voice and appropriate boundaries.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Occasion Category Selection -->
+                        <div class="space-y-2">
+                            <label for="flow-category" class="text-xs font-semibold text-editorial-text uppercase tracking-wider">Note Category</label>
+                            <select id="flow-category" onchange="updateSpecificMoments()" class="w-full bg-editorial-bg border border-editorial-border px-4 py-3 text-sm focus:outline-none focus:border-editorial-text transition-colors">
+                                <option value="celebrate">Celebrate them</option>
+                                <option value="thank">Thank them</option>
+                                <option value="comfort">Comfort them</option>
+                            </select>
+                        </div>
+
+                        <!-- Specific Moment Selection -->
+                        <div class="space-y-2">
+                            <label for="flow-moment" class="text-xs font-semibold text-editorial-text uppercase tracking-wider">Specific Moment</label>
+                            <select id="flow-moment" class="w-full bg-editorial-bg border border-editorial-border px-4 py-3 text-sm focus:outline-none focus:border-editorial-text transition-colors">
+                                <!-- Dynamically populated -->
+                            </select>
+                        </div>
+
+                        <!-- Relationship Dropdown -->
+                        <div class="space-y-2">
+                            <label for="flow-relationship" class="text-xs font-semibold text-editorial-text uppercase tracking-wider">Recipient Relationship</label>
+                            <select id="flow-relationship" class="w-full bg-editorial-bg border border-editorial-border px-4 py-3 text-sm focus:outline-none focus:border-editorial-text transition-colors">
+                                <option value="friend">Friend</option>
+                                <option value="colleague">Colleague</option>
+                                <option value="sibling">Sibling</option>
+                                <option value="spouse">Partner / Spouse</option>
+                                <option value="parent">Parent</option>
+                                <option value="parent-in-law">Parent-in-law</option>
+                                <option value="acquaintance">Acquaintance</option>
+                                <option value="other">Other / Custom</option>
+                            </select>
+                        </div>
+
+                        <!-- Closeness Selection -->
+                        <div class="space-y-2">
+                            <label for="flow-closeness" class="text-xs font-semibold text-editorial-text uppercase tracking-wider">Relationship Closeness</label>
+                            <select id="flow-closeness" class="w-full bg-editorial-bg border border-editorial-border px-4 py-3 text-sm focus:outline-none focus:border-editorial-text transition-colors">
+                                <option value="warm">Warm (Genuine care/affection)</option>
+                                <option value="close">Close (High emotional trust)</option>
+                                <option value="very_close">Very Close (Completely open)</option>
+                                <option value="friendly">Friendly (Casual connection)</option>
+                                <option value="formal">Formal (Respectful/bounded)</option>
+                            </select>
+                        </div>
+
+                        <!-- Recipient Name -->
+                        <div class="space-y-2">
+                            <label for="flow-recipient-name" class="text-xs font-semibold text-editorial-text uppercase tracking-wider">Recipient Name</label>
+                            <input type="text" id="flow-recipient-name" placeholder="e.g. Priya" class="w-full bg-editorial-bg border border-editorial-border px-4 py-3 text-sm focus:outline-none focus:border-editorial-text transition-colors">
+                        </div>
+
+                        <!-- Sender Name -->
+                        <div class="space-y-2">
+                            <label for="flow-sender-name" class="text-xs font-semibold text-editorial-text uppercase tracking-wider">Your Name (for sign-off)</label>
+                            <input type="text" id="flow-sender-name" placeholder="e.g. Niket (optional)" class="w-full bg-editorial-bg border border-editorial-border px-4 py-3 text-sm focus:outline-none focus:border-editorial-text transition-colors">
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-4 pt-6">
+                        <button onclick="prevStep(2)" class="w-1/3 border border-editorial-border text-editorial-text py-3 text-sm font-semibold hover:bg-editorial-border/20 transition-all">
+                            Back
+                        </button>
+                        <button onclick="nextStep(2)" class="w-2/3 bg-editorial-text text-editorial-bg py-3 text-sm font-semibold hover:bg-editorial-text/90 transition-all">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Specifics (The Heart of the App) -->
+                <div id="flow-step-3" class="hidden space-y-6">
+                    <div class="bg-editorial-cardBg border border-editorial-border p-6 rounded-sm space-y-4">
+                        <h4 class="font-serif text-lg font-normal text-editorial-text">✦ This is the part only you can give us.</h4>
+                        <p class="text-editorial-muted text-xs leading-relaxed">
+                            You don't need polished sentences. One real detail is more useful than a paragraph of beautiful words. Just type rough phrases below.
+                        </p>
+                        <div class="text-xs text-editorial-accent italic pl-4 border-l border-editorial-accent/40 space-y-1">
+                            <span class="font-semibold block not-italic uppercase text-[10px] tracking-wider text-editorial-muted">Example details:</span>
+                            "She always stayed on the phone during my first week in the city while we both made dinner. She never asked if I was lonely, she just stayed."
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="flow-context" class="text-xs font-semibold text-editorial-text uppercase tracking-wider">What do you want them to know?</label>
+                        <textarea id="flow-context" rows="5" placeholder="Include what they did, what it changed for you, what you noticed that others didn't, or a small memory..." class="w-full bg-editorial-bg border border-editorial-border px-4 py-3 text-sm focus:outline-none focus:border-editorial-text transition-colors leading-relaxed"></textarea>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="flow-override" class="text-xs font-semibold text-editorial-text uppercase tracking-wider">Special guidelines or constraints (optional)</label>
+                        <input type="text" id="flow-override" placeholder="e.g. Keep it understatement, don't mention the party, etc." class="w-full bg-editorial-bg border border-editorial-border px-4 py-3 text-sm focus:outline-none focus:border-editorial-text transition-colors">
+                    </div>
+
+                    <div class="flex space-x-4 pt-6">
+                        <button onclick="prevStep(3)" class="w-1/3 border border-editorial-border text-editorial-text py-3 text-sm font-semibold hover:bg-editorial-border/20 transition-all">
+                            Back
+                        </button>
+                        <button onclick="generateNoteSubmit()" id="generate-btn" class="w-2/3 bg-editorial-text text-editorial-bg py-3 text-sm font-semibold hover:bg-editorial-text/90 transition-all flex items-center justify-center space-x-2">
+                            <span>Write my note</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Fullscreen/Spinner state -->
+                <div id="flow-loading" class="hidden py-12 flex flex-col items-center justify-center space-y-4">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-editorial-text"></div>
+                    <div class="text-center space-y-1">
+                        <p class="font-serif text-lg text-editorial-text">Crafting your personal note...</p>
+                        <p class="text-xs text-editorial-muted">Our reviewer agent is checking quality and anti-cliché alignment.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- VIEW 3: NOTE READY (The Result Screen with Tactile Card) -->
+        <!-- ==================================================================== -->
+        <section id="view-result" class="app-view">
+            <div class="max-w-6xl mx-auto px-6 py-12 md:py-20 grid md:grid-cols-12 gap-12">
+                <!-- Left Details & Actions -->
+                <div class="md:col-span-5 space-y-8 order-2 md:order-1">
+                    <div class="space-y-2">
+                        <span class="text-xs font-semibold uppercase tracking-widest text-editorial-accent">Your finished note is ready</span>
+                        <h2 class="font-serif text-3xl font-normal text-editorial-text">One strong note.</h2>
+                        <p class="text-editorial-muted text-sm leading-relaxed">
+                            We deliver exactly one robust output so you do not have to sift through a wall of interchangeable drafts. You can edit directly or apply refinements.
+                        </p>
+                    </div>
+
+                    <!-- Refinements Panel -->
+                    <div class="border border-editorial-border p-6 rounded-sm space-y-4 bg-editorial-cardBg/30">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-editorial-text">Assisted Refinements</span>
+                            <span id="refinement-badge" class="text-xs px-2.5 py-0.5 bg-editorial-border/50 rounded-full font-medium text-editorial-text">2 of 2 remaining</span>
+                        </div>
+                        <p class="text-xs text-editorial-muted leading-relaxed">
+                            Adjust the voice or correct missed details using AI assistance. The limit applies only to AI-assisted refinements; direct editing is forever unlimited.
+                        </p>
+                        
+                        <div id="refinement-pills-container" class="grid grid-cols-3 gap-2 pt-2">
+                            <button onclick="applyRefinement('Make it warmer and more emotionally expressive')" class="refinement-btn border border-editorial-border px-3 py-2 text-xs font-medium hover:border-editorial-text bg-editorial-bg transition-all">Warmer</button>
+                            <button onclick="applyRefinement('Make it more understated, clean, and restrained')" class="refinement-btn border border-editorial-border px-3 py-2 text-xs font-medium hover:border-editorial-text bg-editorial-bg transition-all">Restrained</button>
+                            <button onclick="applyRefinement('Make it more casual, direct, and conversational')" class="refinement-btn border border-editorial-border px-3 py-2 text-xs font-medium hover:border-editorial-text bg-editorial-bg transition-all">More direct</button>
+                        </div>
+
+                        <!-- Custom correction input -->
+                        <div class="space-y-2 pt-2" id="custom-refine-box">
+                            <label for="custom-refinement-text" class="text-[10px] font-semibold text-editorial-text uppercase tracking-wider block">Correct or add a detail</label>
+                            <div class="flex space-x-2">
+                                <input type="text" id="custom-refinement-text" placeholder="e.g. Include that she brought over lentil soup..." class="flex-grow bg-editorial-bg border border-editorial-border px-3 py-2 text-xs focus:outline-none focus:border-editorial-text">
+                                <button onclick="applyCustomRefinement()" class="bg-editorial-text text-editorial-bg px-4 py-2 text-xs font-semibold hover:bg-editorial-text/90">Apply</button>
+                            </div>
+                        </div>
+
+                        <!-- Restore original button -->
+                        <button id="restore-original-btn" onclick="restoreOriginalDraft()" class="hidden w-full border border-editorial-border text-editorial-muted hover:text-editorial-text py-2 text-xs font-medium transition-colors">
+                            Restore original draft
+                        </button>
+                    </div>
+
+                    <!-- Direct functional actions -->
+                    <div class="flex flex-col space-y-3">
+                        <button onclick="copyNoteToClipboard()" class="w-full bg-editorial-text text-editorial-bg py-3 text-sm font-semibold tracking-wide hover:bg-editorial-text/90 transition-all flex items-center justify-center space-x-2">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            <span>Copy note text</span>
+                        </button>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="startManualEdit()" class="border border-editorial-border text-editorial-text py-2.5 text-xs font-semibold hover:bg-editorial-border/20 transition-all flex items-center justify-center space-x-1.5">
+                                <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                <span>Edit directly</span>
+                            </button>
+                            <button onclick="downloadTextFile()" class="border border-editorial-border text-editorial-text py-2.5 text-xs font-semibold hover:bg-editorial-border/20 transition-all flex items-center justify-center space-x-1.5">
+                                <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                <span>Download text</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Custom craft notes breakdown -->
+                    <div class="border-t border-editorial-border pt-6 space-y-3">
+                        <span class="text-[10px] font-semibold text-editorial-accent uppercase tracking-widest block">Craft notes</span>
+                        <div id="craft-notes-box" class="text-xs text-editorial-muted leading-relaxed space-y-2">
+                            <!-- Bullet details -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Card Preview -->
+                <div class="md:col-span-7 flex flex-col justify-center order-1 md:order-2">
+                    <!-- Tactile visual representation of card -->
+                    <div class="bg-editorial-bg border border-editorial-border rounded-sm p-12 md:p-16 shadow-lg relative overflow-hidden flex flex-col justify-between aspect-[7/5] transition-transform duration-300 hover:scale-[1.01]" style="background-image: radial-gradient(#E3DFD5 1.5px, transparent 0); background-size: 24px 24px;">
+                        <!-- Editorial dashed inner card frame -->
+                        <div class="absolute inset-4 border border-dashed border-editorial-border/80 p-8 flex flex-col justify-between">
+                            
+                            <!-- Display Area -->
+                            <div id="note-display-area" class="font-serif text-lg md:text-xl text-editorial-text italic leading-relaxed whitespace-pre-wrap flex-grow flex items-center justify-center text-center">
+                                <!-- Generated Note -->
+                            </div>
+
+                            <!-- Manual Edit Textarea Area -->
+                            <div id="note-edit-area" class="hidden flex-grow flex flex-col space-y-3">
+                                <textarea id="note-editor" class="w-full h-full bg-transparent border border-editorial-border focus:outline-none p-4 font-serif text-lg italic leading-relaxed text-editorial-text" rows="6"></textarea>
+                                <div class="flex justify-end space-x-2">
+                                    <button onclick="cancelManualEdit()" class="px-3 py-1 text-xs border border-editorial-border hover:bg-editorial-border/20 font-semibold uppercase tracking-wider">Cancel</button>
+                                    <button onclick="saveManualEdit()" class="px-3 py-1 text-xs bg-editorial-text text-editorial-bg hover:bg-editorial-text/90 font-semibold uppercase tracking-wider">Save</button>
+                                </div>
+                            </div>
+
+                            <div class="text-[10px] tracking-widest uppercase text-editorial-accent font-medium mt-6 self-center">
+                                Crafted with care
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-editorial-border bg-editorial-cardBg/40 py-8">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between text-xs text-editorial-muted font-medium space-y-4 md:space-y-0">
+            <div>&copy; 2026 Rooting For You. All rights reserved.</div>
+            <div class="flex space-x-6">
+                <a href="#" onclick="showView('home')" class="hover:text-editorial-text transition-colors">Homepage</a>
+                <span class="text-editorial-border">|</span>
+                <a href="#about" onclick="showView('home'); scrollToSection('about')" class="hover:text-editorial-text transition-colors">Philosophy</a>
+                <span class="text-editorial-border">|</span>
+                <a href="#faq" onclick="showView('home'); scrollToSection('faq')" class="hover:text-editorial-text transition-colors">Quality Guidelines</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Logic Block -->
+    <script>
+        // Global state mapping for moment dropdown
+        const MOMENTS_MAP = {
+            celebrate: [
+                { value: 'birthday', label: 'Birthday' },
+                { value: 'graduation', label: 'Graduation' },
+                { value: 'promotion', label: 'Promotion' },
+                { value: 'new_business', label: 'New Business' },
+                { value: 'publication', label: 'Publication' },
+                { value: 'award_or_recognition', label: 'Award or Recognition' },
+                { value: 'new_job', label: 'New Job' },
+                { value: 'new_home', label: 'New Home' },
+                { value: 'engagement', label: 'Engagement' },
+                { value: 'pregnancy_announcement', label: 'Pregnancy Announcement' },
+                { value: 'retirement', label: 'Retirement' },
+                { value: 'wedding', label: 'Wedding' },
+                { value: 'anniversary', label: 'Anniversary' },
+                { value: 'new_baby', label: 'New Baby' },
+            ],
+            thank: [
+                { value: 'thank_you', label: 'General Thank-you' },
+            ],
+            comfort: [
+                { value: 'get_well', label: 'Get Well' },
+                { value: 'condolences', label: 'Condolences' }
+            ]
+        };
+
+        let currentFlowStep = 1;
+        let sessionData = {
+            session_id: null,
+            original_note: '',
+            current_note: '',
+            refinements_used: 0,
+            refinements_max: 2,
+            inputs: null
+        };
+
+        async function readApiError(response) {
+            // Safely parse API errors whether the body is JSON or plain text
+            const raw = await response.text();
+            try {
+                const parsed = JSON.parse(raw);
+                return parsed.detail || parsed.message || raw || `HTTP ${response.status}`;
+            } catch (e) {
+                return raw || `HTTP ${response.status}`;
+            }
+        }
+
+        // Initialize elements
+        document.addEventListener("DOMContentLoaded", () => {
+            updateSpecificMoments();
+        });
+
+        function showView(viewId) {
+            document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
+            const activeView = document.getElementById(`view-${viewId}`);
+            if (activeView) activeView.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToSection(sectionId) {
+            setTimeout(() => {
+                const el = document.getElementById(sectionId);
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        function updateSpecificMoments() {
+            const cat = document.getElementById('flow-category').value;
+            const momentSelect = document.getElementById('flow-moment');
+            momentSelect.innerHTML = '';
+            
+            if (MOMENTS_MAP[cat]) {
+                MOMENTS_MAP[cat].forEach(item => {
+                    const opt = document.createElement('option');
+                    opt.value = item.value;
+                    opt.textContent = item.label;
+                    momentSelect.appendChild(opt);
+                });
+            }
+        }
+
+        function startNoteFlow(preselectedCategory = null) {
+            currentFlowStep = 1;
+            setupFlowStepUI();
+            
+            if (preselectedCategory) {
+                document.getElementById('flow-category').value = preselectedCategory;
+                updateSpecificMoments();
+            }
+            
+            showView('flow');
+        }
+
+        function cancelFlow() {
+            if (confirm("Are you sure you want to cancel? Any input details will be lost.")) {
+                showView('home');
+            }
+        }
+
+        function setupFlowStepUI() {
+            // Hide all sub-steps
+            document.getElementById('flow-step-1').classList.add('hidden');
+            document.getElementById('flow-step-2').classList.add('hidden');
+            document.getElementById('flow-step-3').classList.add('hidden');
+            document.getElementById('flow-loading').classList.add('hidden');
+
+            document.getElementById(`flow-step-${currentFlowStep}`).classList.remove('hidden');
+
+            // Update step labels
+            document.getElementById('step-number').textContent = `Step ${currentFlowStep} of 3`;
+            if (currentFlowStep === 1) {
+                document.getElementById('step-title').textContent = "Your Email";
+            } else if (currentFlowStep === 2) {
+                document.getElementById('step-title').textContent = "Who & Why";
+            } else if (currentFlowStep === 3) {
+                document.getElementById('step-title').textContent = "Tell us what is true";
+            }
+        }
+
+        function nextStep(step) {
+            if (step === 1) {
+                const email = document.getElementById('flow-email').value.trim();
+                if (!email || !email.includes('@')) {
+                    alert("Please enter a valid email address.");
+                    return;
+                }
+            } else if (step === 2) {
+                const recipient = document.getElementById('flow-recipient-name').value.trim();
+                if (!recipient) {
+                    alert("Please enter the recipient's name.");
+                    return;
+                }
+            }
+
+            currentFlowStep = step + 1;
+            setupFlowStepUI();
+        }
+
+        function prevStep(step) {
+            currentFlowStep = step - 1;
+            setupFlowStepUI();
+        }
+
+        async function generateNoteSubmit() {
+            const context = document.getElementById('flow-context').value.trim();
+            if (!context) {
+                if (!confirm("Are you sure you want to write a note without personal details? It will be much more sincere if you include at least rough details about what they did.")) {
+                    return;
+                }
+            }
+
+            // Enter loading state
+            document.getElementById('flow-step-3').classList.add('hidden');
+            document.getElementById('flow-loading').classList.remove('hidden');
+            document.getElementById('step-number').textContent = "Processing";
+            document.getElementById('step-title').textContent = "AI-Review Active";
+
+            const payload = {
+                email: document.getElementById('flow-email').value.trim(),
+                newsletter_consent: document.getElementById('flow-newsletter').checked,
+                occasion_category: document.getElementById('flow-category').value,
+                specific_moment: document.getElementById('flow-moment').value,
+                recipient_name: document.getElementById('flow-recipient-name').value.trim(),
+                relationship: document.getElementById('flow-relationship').value,
+                relationship_closeness: document.getElementById('flow-closeness').value,
+                known_context: context || "No specific details provided.",
+                sender_name: document.getElementById('flow-sender-name').value.trim(),
+                user_override: document.getElementById('flow-override').value.trim()
+            };
+
+            try {
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(await readApiError(response));
+                }
+
+                const data = await response.json();
+                
+                // Set global session including original form inputs for later refine calls
+                sessionData = {
+                    session_id: data.session_id,
+                    original_note: data.final_note,
+                    current_note: data.final_note,
+                    refinements_used: data.refinements_used,
+                    refinements_max: data.refinements_max,
+                    inputs: payload
+                };
+
+                // Render result view
+                updateResultUI(data.final_note, data.craft_notes);
+                showView('result');
+                
+            } catch (err) {
+                alert(`Error: ${err.message}`);
+                // Back to step 3
+                currentFlowStep = 3;
+                setupFlowStepUI();
+            }
+        }
+
+        function updateResultUI(note, craftNotes) {
+            document.getElementById('note-display-area').textContent = note;
+            document.getElementById('note-editor').value = note;
+            
+            // Build craft notes list
+            const craftBox = document.getElementById('craft-notes-box');
+            craftBox.innerHTML = '';
+            
+            if (craftNotes) {
+                // Split bullets
+                const bullets = craftNotes.split('\n').filter(l => l.trim().startsWith('-') || l.trim().startsWith('*') || l.trim().length > 3);
+                if (bullets.length > 0) {
+                    bullets.forEach(b => {
+                        const li = document.createElement('p');
+                        li.textContent = b.replace(/^[\s-*-]+/, '').trim();
+                        craftBox.appendChild(li);
+                    });
+                } else {
+                    const p = document.createElement('p');
+                    p.textContent = craftNotes;
+                    craftBox.appendChild(p);
+                }
+            } else {
+                craftBox.innerHTML = '<p>Drafted around one central meaningful relationship quality, without cliché words or generic AI frameworks.</p>';
+            }
+
+            // Update badge
+            const badge = document.getElementById('refinement-badge');
+            const rem = sessionData.refinements_max - sessionData.refinements_used;
+            badge.textContent = `${rem} of ${sessionData.refinements_max} remaining`;
+
+            // Disable refinement buttons if maximum used
+            const refinementButtons = document.querySelectorAll('.refinement-btn');
+            if (rem <= 0) {
+                refinementButtons.forEach(btn => btn.setAttribute('disabled', 'true'));
+                document.getElementById('custom-refine-box').classList.add('opacity-50');
+                document.getElementById('custom-refinement-text').setAttribute('disabled', 'true');
+            } else {
+                refinementButtons.forEach(btn => btn.removeAttribute('disabled'));
+                document.getElementById('custom-refine-box').classList.remove('opacity-50');
+                document.getElementById('custom-refinement-text').removeAttribute('disabled');
+            }
+
+            // Show/hide restore original draft button
+            const restoreBtn = document.getElementById('restore-original-btn');
+            if (sessionData.refinements_used > 0) {
+                restoreBtn.classList.remove('hidden');
+            } else {
+                restoreBtn.classList.add('hidden');
+            }
+        }
+
+        async function applyRefinement(instruction) {
+            if (sessionData.refinements_used >= sessionData.refinements_max) {
+                alert("You've used all available AI-assisted refinements for this note.");
+                return;
+            }
+
+            // Loading state on the card preview
+            const noteDisplay = document.getElementById('note-display-area');
+            noteDisplay.innerHTML = '<div class="flex flex-col items-center justify-center space-y-2"><div class="animate-spin rounded-full h-5 w-5 border-b-2 border-editorial-text"></div><span class="text-xs text-editorial-muted">Refining note...</span></div>';
+
+            const inputs = sessionData.inputs || {};
+            const payload = {
+                session_id: sessionData.session_id,
+                refinement_instruction: instruction,
+                current_note: sessionData.current_note,
+                refinements_used: sessionData.refinements_used,
+                occasion_category: inputs.occasion_category,
+                specific_moment: inputs.specific_moment,
+                recipient_name: inputs.recipient_name,
+                relationship: inputs.relationship,
+                relationship_closeness: inputs.relationship_closeness,
+                known_context: inputs.known_context,
+                sender_name: inputs.sender_name || "",
+                user_override: inputs.user_override || ""
+            };
+
+            try {
+                const response = await fetch('/api/refine', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(await readApiError(response));
+                }
+
+                const data = await response.json();
+                
+                // Update state
+                sessionData.current_note = data.final_note;
+                sessionData.refinements_used = data.refinements_used;
+
+                updateResultUI(data.final_note, "Note updated based on refinement: " + instruction);
+
+            } catch (err) {
+                alert(`Error: ${err.message}`);
+                // Restore displaying original state text
+                noteDisplay.textContent = sessionData.current_note;
+            }
+        }
+
+        function applyCustomRefinement() {
+            const txt = document.getElementById('custom-refinement-text').value.trim();
+            if (!txt) {
+                alert("Please type a correction instruction first.");
+                return;
+            }
+            applyRefinement(txt);
+            document.getElementById('custom-refinement-text').value = '';
+        }
+
+        function restoreOriginalDraft() {
+            if (confirm("Restore to the first original note generated? This will count as resetting refinements, but manual changes are still preserved.")) {
+                // We let them reset back to the original draft
+                sessionData.current_note = sessionData.original_note;
+                sessionData.refinements_used = 0; // reset refinements
+                updateResultUI(sessionData.original_note, "Restored original human-approved note.");
+            }
+        }
+
+        // Clipboard copy
+        function copyNoteToClipboard() {
+            const note = sessionData.current_note;
+            navigator.clipboard.writeText(note).then(() => {
+                alert("Note text copied to clipboard!");
+            }).catch(err => {
+                alert("Failed to copy text: " + err);
+            });
+        }
+
+        // Direct Manual Editing Mode
+        function startManualEdit() {
+            document.getElementById('note-display-area').classList.add('hidden');
+            document.getElementById('note-edit-area').classList.remove('hidden');
+            document.getElementById('note-editor').focus();
+        }
+
+        function cancelManualEdit() {
+            document.getElementById('note-edit-area').classList.add('hidden');
+            document.getElementById('note-display-area').classList.remove('hidden');
+        }
+
+        function saveManualEdit() {
+            const editedText = document.getElementById('note-editor').value.trim();
+            if (!editedText) {
+                alert("Note text cannot be empty.");
+                return;
+            }
+            sessionData.current_note = editedText;
+            document.getElementById('note-display-area').textContent = editedText;
+            cancelManualEdit();
+        }
+
+        // Text File Download
+        function downloadTextFile() {
+            const note = sessionData.current_note;
+            const blob = new Blob([note], { type: "text/plain;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `rooting-for-you-note.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
