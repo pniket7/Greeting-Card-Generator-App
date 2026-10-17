@@ -149,11 +149,21 @@ begin
   ) then
     raise exception 'user A read user B note text';
   end if;
+end $$;
 
-  select count(*) into seen_traces from public.note_trace;
-  if seen_traces <> 0 then
-    raise exception 'user A read a model trace';
-  end if;
+do $$
+declare
+  seen_traces integer;
+begin
+  begin
+    select count(*) into seen_traces from public.note_trace;
+    if seen_traces <> 0 then
+      raise exception 'user A read a model trace';
+    end if;
+  exception
+    when insufficient_privilege then
+      null;
+  end;
 end $$;
 
 do $$
